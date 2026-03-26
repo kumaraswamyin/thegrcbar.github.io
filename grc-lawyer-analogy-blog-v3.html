@@ -253,9 +253,89 @@
     .triad-header div, .triad-row div { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .triad-row div { border-right: none; border-bottom: 1px solid var(--rule); }
   }
+
+  /* ── Back Nav ─────────────────────────────────────────── */
+  .back-nav {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: rgba(10,9,8,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #2a2520;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .back-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .back-nav a:hover { opacity: 0.7; }
+
+  .back-home {
+    color: #a09890;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .back-home::before {
+    content: '←';
+    color: #c9952a;
+  }
+
+  .back-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: #e8e2d9;
+    letter-spacing: -0.01em;
+  }
+
+  .back-logo em {
+    color: #c9952a;
+    font-style: italic;
+  }
+
+  .back-nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .back-nav-links a {
+    color: #6b6560;
+  }
+
+  .back-nav-links a:hover { color: #a09890; }
+
+  @media (max-width: 600px) {
+    .back-nav-links { display: none; }
+  }
+
 </style>
 </head>
 <body>
+
+  <!-- Back Navigation -->
+  <nav class="back-nav">
+    <a href="index.html" class="back-home">Back to TheGRCBar.org</a>
+    <a href="index.html" class="back-logo">The <em>GRC</em> Bar</a>
+    <ul class="back-nav-links">
+      <li><a href="index.html#manifesto">Manifesto</a></li>
+      <li><a href="TheGRCBar-Challenge.html">Challenge</a></li>
+      <li><a href="index.html#blog">Insights</a></li>
+    </ul>
+  </nav>
+
 <div class="wrapper">
 
   <span class="section-tag">Opinion · GRC &amp; Security</span>
