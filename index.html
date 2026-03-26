@@ -708,41 +708,7 @@ section {
   line-height: 1.7;
 }
 
-.join-form {
-  display: flex;
-  gap: 0;
-  max-width: 480px;
-  margin: 0 auto 1.5rem;
-}
-
-.join-form input {
-  flex: 1;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.3);
-  border-right: none;
-  color: white;
-  padding: 0.85rem 1.25rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  outline: none;
-}
-
-.join-form input::placeholder { color: rgba(255,255,255,0.5); }
-
-.join-form button {
-  background: white;
-  color: var(--accent);
-  border: none;
-  padding: 0.85rem 1.5rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.2s;
-}
-
-.join-form button:hover { background: #f0ebe0; }
+/* join form replaced with LinkedIn buttons */
 
 .join-note {
   font-family: 'DM Mono', monospace;
@@ -750,6 +716,54 @@ section {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.6);
+}
+
+
+/* ===================== LINKEDIN BUTTONS ===================== */
+.linkedin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-width: 420px;
+  margin: 0 auto 1.5rem;
+}
+
+.li-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+}
+
+.li-btn-primary {
+  background: #0077b5;
+  color: white;
+  border: 2px solid #0077b5;
+}
+
+.li-btn-primary:hover {
+  background: #005e93;
+  border-color: #005e93;
+  transform: translateY(-1px);
+}
+
+.li-btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+
+.li-btn-outline:hover {
+  border-color: white;
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-1px);
 }
 
 /* ===================== FOOTER ===================== */
@@ -891,7 +905,7 @@ footer {
     <li><a href="#challenge">Challenge</a></li>
     <li><a href="#blog">Insights</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#join" class="nav-cta">Join the Movement</a></li>
+    <li><a href="https://www.linkedin.com/in/kumaraswamyin/" target="_blank" class="nav-cta">Join the Movement</a></li>
   </ul>
   <div class="nav-hamburger" onclick="toggleNav()" id="hamburger">
     <span></span><span></span><span></span>
@@ -927,10 +941,10 @@ footer {
     </div>
     <div class="stat-item reveal">
       <span class="stat-num">3</span>
-      <span class="stat-label">Pillars Every GRC Professional Must Master</span>
+      <span class="stat-label">Pillars Every GRC Professional Must Command</span>
     </div>
     <div class="stat-item reveal">
-      <span class="stat-num">2–3yr</span>
+      <span class="stat-num">2–3 Years</span>
       <span class="stat-label">Stay Ahead of the Framework & Regulation</span>
     </div>
     <div class="stat-item reveal">
@@ -1112,7 +1126,7 @@ footer {
 
         <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
           <a href="#join" class="btn-primary">Join the Movement →</a>
-          <a href="https://linkedin.com/in/kumaraswamyin" class="btn-outline" target="_blank">LinkedIn</a>
+          <a href="https://www.linkedin.com/in/kumaraswamyin/" class="btn-outline" target="_blank">LinkedIn →</a>
         </div>
       </div>
     </div>
@@ -1123,12 +1137,28 @@ footer {
 <section id="join">
   <div class="join-inner">
     <h2>Ready to Raise<br>the Bar?</h2>
-    <p>Join the movement. Get new scenarios, insights, and spotlights on GRC professionals doing exceptional work — delivered to your inbox.</p>
-    <div class="join-form">
-      <input type="email" placeholder="your@email.com" id="emailInput">
-      <button onclick="handleJoin()">Join #TheGRCBar</button>
+    <p>The movement lives on LinkedIn — where 3–5 million GRC professionals already gather. Follow along, subscribe to the newsletter, and join the community. Explore the full movement at <a href="https://thegrcbar.org" target="_blank" style="color:white;text-decoration:underline;font-weight:500;">TheGRCBar.org</a></p>
+
+    <div class="linkedin-actions">
+
+      <a href="https://www.linkedin.com/in/kumaraswamyin/" target="_blank" class="li-btn li-btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        Follow Kumar Selvaraj
+      </a>
+
+      <a href="https://www.linkedin.com/newsletters/" target="_blank" class="li-btn li-btn-outline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Subscribe to the Newsletter
+      </a>
+
+      <a href="https://www.linkedin.com/groups/" target="_blank" class="li-btn li-btn-outline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Join the Community
+      </a>
+
     </div>
-    <div class="join-note" id="joinNote">No spam. No vendor pitches. Just the profession at its best.</div>
+
+    <p class="join-note">#TheGRCBar &nbsp;·&nbsp; TheGRCBar.org &nbsp;·&nbsp; Every level · Every title · Every industry</p>
   </div>
 </section>
 
@@ -1138,6 +1168,7 @@ footer {
     <div class="footer-brand">
       <span class="logo-text">The <em>GRC</em> Bar</span>
       <p>A professional movement for every GRC professional — from analyst to CISO. Think like a trial lawyer. Know your client. Command your statutes. Study your adversary.</p>
+      <a href="https://thegrcbar.org" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;color:#c9952a;text-decoration:none;display:block;margin-top:0.75rem;">TheGRCBar.org →</a>
     </div>
     <div class="footer-col">
       <h4>Navigate</h4>
@@ -1159,7 +1190,7 @@ footer {
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 TheGRCBar.org · All rights reserved</span>
+    <span>© 2026 <a href="https://thegrcbar.org" style="color:var(--muted);text-decoration:none;">TheGRCBar.org</a> · All rights reserved</span>
     <span class="hashtag-footer">#TheGRCBar</span>
   </div>
 </footer>
@@ -1184,19 +1215,7 @@ const observer = new IntersectionObserver((entries) => {
 
 reveals.forEach(el => observer.observe(el));
 
-// Join form
-function handleJoin() {
-  const email = document.getElementById('emailInput').value;
-  const note = document.getElementById('joinNote');
-  if (email && email.includes('@')) {
-    note.textContent = '✓ You\'re in. Welcome to #TheGRCBar.';
-    note.style.color = 'rgba(255,255,255,0.9)';
-    document.getElementById('emailInput').value = '';
-  } else {
-    note.textContent = 'Please enter a valid email address.';
-    note.style.color = 'rgba(255,200,150,0.9)';
-  }
-}
+// Join form handled via LinkedIn external links
 
 // Active nav on scroll
 const sections = document.querySelectorAll('section[id], div[id]');
