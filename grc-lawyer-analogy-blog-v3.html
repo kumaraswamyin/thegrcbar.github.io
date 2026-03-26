@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #0f0e0c;
-    --paper: #f5f0e8;
-    --accent: #c8392b;
-    --gold: #b8860b;
-    --muted: #6b6560;
-    --rule: #d4cfc6;
-    --highlight: #fff9e6;
+    --ink: #1a1a2e;
+    --paper: #faf7f2;
+    --accent: #c9952a;
+    --gold: #c9952a;
+    --muted: #6b7280;
+    --rule: #ddd8cc;
+    --highlight: #fef9ec;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -71,7 +71,7 @@
   .deck {
     font-size: 1.05rem;
     font-weight: 400;
-    color: #3a3631;
+    color: #2a2a3e;
     border-left: 3px solid var(--gold);
     padding-left: 1rem;
     margin-bottom: 1.5rem;
@@ -97,7 +97,7 @@
   article p {
     font-size: 1rem;
     margin-bottom: 1.3rem;
-    color: #2a2723;
+    color: #2a2a3e;
   }
 
   article p:first-child::first-letter {
@@ -178,7 +178,7 @@
   .anecdote p {
     font-size: 0.97rem !important;
     margin-bottom: 0 !important;
-    color: #2a2723;
+    color: #2a2a3e;
     line-height: 1.7;
   }
 
@@ -207,12 +207,13 @@
     opacity: 0.5;
   }
 
+  .pull-quote p::first-letter { font-size:inherit!important; font-weight:inherit!important; float:none!important; line-height:inherit!important; margin:0!important; color:inherit!important; }
   .pull-quote p {
     font-family: 'Playfair Display', serif;
     font-size: 1.1rem;
     font-style: italic;
     line-height: 1.5;
-    color: var(--paper) !important;
+    color: #faf7f2 !important;
     padding-left: 2rem;
     margin-bottom: 0 !important;
   }

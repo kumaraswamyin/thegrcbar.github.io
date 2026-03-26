@@ -7,24 +7,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #0a0908;
-    --paper: #0f0e0c;
-    --surface: #1a1815;
-    --surface2: #242018;
-    --accent: #c8392b;
+    --ink: #1a1a2e;
+    --paper: #faf7f2;
+    --surface: #1e3055;
+    --surface2: #243560;
+    --accent: #c9952a;
     --gold: #c9a84c;
-    --muted: #6b6560;
+    --muted: #6b7280;
     --text: #e8e2d9;
     --text-soft: #a09890;
     --rule: #2a2520;
-    --green: #2d7a4f;
-    --green-light: #3dab6e;
+    --green: #1a5c3a;
+    --green-light: #27ae60;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: var(--paper);
+    background: #faf7f2;
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
@@ -135,13 +135,13 @@
   }
 
   .pillar {
-    background: var(--surface);
+    background: #1e3055;
     padding: 1.5rem;
     text-align: center;
     transition: background 0.2s;
   }
 
-  .pillar:hover { background: var(--surface2); }
+  .pillar:hover { background: #243560; }
 
   .pillar-icon {
     font-size: 1.5rem;
@@ -195,7 +195,7 @@
   }
 
   .level-btn {
-    background: var(--surface);
+    background: #1e3055;
     border: 1px solid var(--rule);
     color: var(--text);
     padding: 1rem;
@@ -207,7 +207,7 @@
 
   .level-btn:hover, .level-btn.selected {
     border-color: var(--gold);
-    background: var(--surface2);
+    background: #243560;
   }
 
   .level-btn.selected { border-color: var(--accent); }
@@ -240,7 +240,7 @@
     display: inline-block;
   }
 
-  .btn-primary:hover { background: #a82f25; transform: translateY(-1px); }
+  .btn-primary:hover { background: #b8841f; transform: translateY(-1px); }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
   .btn-secondary {
@@ -292,7 +292,7 @@
 
   /* Scenario card */
   .scenario-card {
-    background: var(--surface);
+    background: #1e3055;
     border: 1px solid var(--rule);
     border-left: 3px solid var(--gold);
     padding: 1.8rem;
@@ -324,7 +324,7 @@
   }
 
   .lens-prompt {
-    background: var(--surface2);
+    background: #243560;
     border: 1px solid var(--rule);
     padding: 0.85rem;
     font-size: 0.78rem;
@@ -361,7 +361,7 @@
 
   .answer-area textarea {
     width: 100%;
-    background: var(--surface);
+    background: #1e3055;
     border: 1px solid var(--rule);
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
@@ -394,7 +394,7 @@
 
   /* AI Feedback */
   .feedback-panel {
-    background: var(--surface);
+    background: #1e3055;
     border: 1px solid var(--rule);
     margin-top: 1.5rem;
     overflow: hidden;
@@ -409,7 +409,7 @@
   }
 
   .feedback-header {
-    background: var(--surface2);
+    background: #243560;
     padding: 0.75rem 1.25rem;
     display: flex;
     align-items: center;
@@ -448,7 +448,7 @@
   }
 
   .score-item {
-    background: var(--surface2);
+    background: #243560;
     padding: 0.65rem 0.75rem;
     text-align: center;
   }
@@ -542,7 +542,7 @@
   .results-verdict {
     margin: 2rem 0;
     padding: 1.5rem;
-    background: var(--surface);
+    background: #1e3055;
     border-left: 3px solid var(--gold);
     font-size: 1rem;
     line-height: 1.7;
@@ -560,7 +560,7 @@
   }
 
   .breakdown-item {
-    background: var(--surface);
+    background: #1e3055;
     padding: 1.25rem;
     text-align: center;
   }
