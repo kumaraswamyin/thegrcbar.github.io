@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Every GRC Professional Should Think Like a Trial Lawyer | Kumar Swamy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --paper: #f5f0e8;
+    --accent: #c8392b;
+    --gold: #b8860b;
+    --muted: #6b6560;
+    --rule: #d4cfc6;
+    --highlight: #fff9e6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.5;
+  }
+
+  .wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2rem 0.6rem;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .deck {
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: #3a3631;
+    border-left: 3px solid var(--gold);
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .meta strong { color: var(--ink); }
+
+  article p {
+    font-size: 1rem;
+    margin-bottom: 1.3rem;
+    color: #2a2723;
+  }
+
+  article p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.85;
+    margin-right: 0.1em;
+    margin-top: 0.12em;
+    color: var(--accent);
+  }
+
+  /* Triad table */
+  .triad {
+    margin: 1.8rem 0;
+    border: 1px solid var(--ink);
+    font-size: 0.88rem;
+  }
+
+  .triad-header {
+    background: var(--ink);
+    color: var(--paper);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .triad-header div, .triad-row div {
+    padding: 0.6rem 0.85rem;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .triad-header div:last-child, .triad-row div:last-child { border-right: none; }
+
+  .triad-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--rule);
+  }
+
+  .triad-row:nth-child(even) { background: var(--highlight); }
+
+  .triad-row div {
+    border-right: 1px solid var(--rule);
+    line-height: 1.5;
+  }
+
+  .triad-label {
+    font-weight: 500;
+    color: var(--accent);
+    display: block;
+    font-size: 0.8rem;
+  }
+
+  /* Anecdote / callout box */
+  .anecdote {
+    margin: 1.8rem 0;
+    padding: 1.4rem 1.6rem;
+    background: var(--highlight);
+    border-left: 4px solid var(--gold);
+    position: relative;
+  }
+
+  .anecdote-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .anecdote p {
+    font-size: 0.97rem !important;
+    margin-bottom: 0 !important;
+    color: #2a2723;
+    line-height: 1.7;
+  }
+
+  .anecdote p + p {
+    margin-top: 0.8rem !important;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    margin: 1.8rem 0;
+    padding: 1.4rem 1.6rem;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    line-height: 0;
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    color: var(--accent);
+    opacity: 0.5;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--paper) !important;
+    padding-left: 2rem;
+    margin-bottom: 0 !important;
+  }
+
+  /* Footer byline */
+  .byline {
+    border-top: 2px solid var(--ink);
+    margin-top: 2.5rem;
+    padding-top: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .byline-text strong {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .byline-text span {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .byline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 500px) {
+    .triad-header, .triad-row { grid-template-columns: 1fr; }
+    .triad-header div, .triad-row div { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .triad-row div { border-right: none; border-bottom: 1px solid var(--rule); }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <span class="section-tag">Opinion · GRC &amp; Security</span>
+
+  <h1>Every GRC Professional Should Think Like a <em>Trial Lawyer</em></h1>
+
+  <p class="deck">The Compliance frameworks are your statutes. The platform is your client. The adversary is opposing counsel. Stop preparing for the audit — start preparing for the trial.</p>
+
+  <div class="meta">
+    <strong>Kumar Selvaraj</strong>
+    <span>VP, Global Security Compliance &amp; GRC · Zscaler</span>
+    <span>March 2026</span>
+  </div>
+
+  <article>
+
+    <p>No matter where you sit in a GRC team — whether you're running your first SOC 2 audit or managing a portfolio of global certifications — there is a failure mode that quietly undermines the whole function. We get so good at working the framework that we forget what we are actually there to do. The controls get mapped. The evidence gets collected. The audit passes. And somewhere in the gap between the checklist and reality, the real risk lives undisturbed.</p>
+
+    <p>The mental model I keep coming back to is the trial lawyer. A great one operates across three elements simultaneously — and so should every GRC professional, regardless of title.</p>
+
+    <div class="triad">
+      <div class="triad-header">
+        <div>Element</div>
+        <div>Legal World</div>
+        <div>GRC World</div>
+      </div>
+      <div class="triad-row">
+        <div><span class="triad-label">The Client</span>Whose interests you exist to protect</div>
+        <div>Your client's freedom, assets &amp; reputation</div>
+        <div>Your product, platform, or service — and the customers who depend on it</div>
+      </div>
+      <div class="triad-row">
+        <div><span class="triad-label">Statutory Law</span>The rules of the game</div>
+        <div>Case law, statutes, procedure</div>
+        <div>ISO 27001, FedRAMP, NIST, GDPR, EU AI Act</div>
+      </div>
+      <div class="triad-row">
+        <div><span class="triad-label">The Adversary</span>Actively trying to defeat you</div>
+        <div>Opposing counsel — skilled and studying your gaps</div>
+        <div>Threat actors — probing your controls for the seams</div>
+      </div>
+    </div>
+
+    <p>The framework — ISO, FedRAMP, NIST, whatever your courtroom runs on — is your statutory law. Master it. Know it cold. But never confuse the rulebook with the strategy. The rules tell you how the game is played. They don't tell you how to win it.</p>
+
+    <div class="anecdote">
+      <span class="anecdote-label">On knowing your client</span>
+      <p>There's a rule every good lawyer lives by: <em>never let your client surprise you on the stand.</em> You need to know everything — the strengths and the gaps — before opposing counsel does. Because in court, a blind spot isn't just embarrassing. It's losing.</p>
+      <p>The same rule applies in GRC. You cannot defend a product you don't fully understand. If an auditor, a regulator, or a sophisticated customer asks a sharp question about your platform's data flows, your access model, or your AI pipeline — and you don't know the answer — you have just handed opposing counsel the case. Know your product the way a lawyer knows their client. No blind spots. No surprises.</p>
+    </div>
+
+    <p>The adversary is the most underweighted element in GRC at every level. Even junior analysts benefit from asking: "What would an attacker do with this gap?" Sophisticated threat actors don't read your compliance documentation looking to help you improve — they read it looking for the seams between frameworks. Real continuous monitoring, even in its most basic form, should ask not just "is the control in place?" but "would this control hold against someone actively trying to defeat it?"</p>
+
+    <div class="pull-quote">
+      <p>Compliance frameworks follow the threat landscape with a 2–3 year lag. Your adversary does not read the same calendar.</p>
+    </div>
+
+    <p>One final element completes the courtroom: the <strong>judge and jury</strong> — your auditors, regulators, board, and customers. A great lawyer knows their audience and argues accordingly. As a GRC professional, your ability to communicate risk clearly — in plain language, tied to real business impact — matters as much as the quality of your controls. Whether you're writing an audit response or briefing a CISO, you are always making a case to someone. Make it well.</p>
+
+    <p>The simplest test, for anyone in GRC at any level: if your program achieves a clean audit score while an adversary moves quietly inside your environment — and nothing flags it — you have built a compliance program, not a security program. Know your client. Know the law. Know your adversary. That's how you win the trial.</p>
+
+  </article>
+
+  <div class="byline">
+    <div class="byline-text">
+      <strong>Kumar Selvaraj</strong>
+      <span>Enterprise Security, Governance &amp; Trust executive — 20+ years at the intersection of cloud innovation, AI governance, and global regulatory strategy.</span>
+    </div>
+    <span class="byline-date">© 2026</span>
+  </div>
+
+</div>
+</body>
+</html>

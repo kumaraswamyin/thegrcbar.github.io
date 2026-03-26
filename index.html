@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The GRC Bar — A professional movement elevating GRC professionals. Think like a trial lawyer. Know your client. Command your statutes. Study your adversary.">
+<meta property="og:title" content="The GRC Bar — Stop Preparing for the Audit. Start Preparing for the Trial.">
+<meta property="og:description" content="A movement for every GRC professional — from analyst to CISO. The compliance frameworks are your statutes. The platform is your client. The adversary is opposing counsel.">
+<title>The GRC Bar — Stop Preparing for the Audit. Start Preparing for the Trial.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0908;
+  --paper: #f5f0e8;
+  --dark: #0f0e0c;
+  --surface: #1a1815;
+  --surface2: #242018;
+  --accent: #c8392b;
+  --gold: #b8860b;
+  --gold-light: #d4a030;
+  --muted: #6b6560;
+  --rule: #d4cfc6;
+  --rule-dark: #2a2520;
+  --text-dark: #e8e2d9;
+  --text-soft-dark: #a09890;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--dark);
+  color: var(--text-dark);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ===================== NAV ===================== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  background: rgba(10,9,8,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--rule-dark);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo em { color: var(--accent); font-style: italic; }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft-dark);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text-dark); }
+
+.nav-cta {
+  background: var(--accent) !important;
+  color: white !important;
+  padding: 0.4rem 1rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+.nav-cta:hover { background: #a82f25 !important; }
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  width: 22px;
+  height: 1.5px;
+  background: var(--text-dark);
+  transition: all 0.3s;
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(200,57,43,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(184,134,11,0.04) 0%, transparent 60%);
+}
+
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 79px,
+      rgba(255,255,255,0.015) 79px,
+      rgba(255,255,255,0.015) 80px
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(200,57,43,0.4);
+  padding: 0.3rem 0.9rem;
+  display: inline-block;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.8s ease 0.1s both;
+}
+
+.hero h1 em { color: var(--accent); font-style: italic; }
+.hero h1 .gold { color: var(--gold-light); font-style: normal; }
+
+.hero-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  margin: 0 auto 1.5rem;
+  animation: fadeUp 0.8s ease 0.2s both;
+}
+
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-style: italic;
+  color: var(--text-soft-dark);
+  max-width: 620px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+  animation: fadeUp 0.8s ease 0.3s both;
+}
+
+.hero-tagline strong { color: var(--text-dark); font-style: normal; }
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s ease 0.4s both;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.85rem 2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 0.03em;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover { background: #a82f25; transform: translateY(-2px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1px solid var(--rule-dark);
+  padding: 0.85rem 2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover { border-color: var(--text-soft-dark); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeUp 1s ease 0.8s both;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ===================== STATS BAR ===================== */
+.stats-bar {
+  background: var(--surface);
+  border-top: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  padding: 1.5rem 2rem;
+}
+
+.stats-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule-dark);
+}
+
+.stat-item {
+  background: var(--surface);
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+}
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--gold-light);
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft-dark);
+}
+
+/* ===================== SECTIONS ===================== */
+section {
+  padding: 6rem 2rem;
+}
+
+.section-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.section-title em { color: var(--accent); font-style: italic; }
+
+/* ===================== MANIFESTO SECTION ===================== */
+#manifesto {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+#manifesto .section-label { color: var(--accent); }
+#manifesto .section-title { color: var(--ink); }
+
+.manifesto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.manifesto-left p {
+  font-size: 1rem;
+  color: #3a3631;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+.manifesto-right {
+  position: sticky;
+  top: 80px;
+}
+
+.three-lens {
+  border: 1px solid var(--rule);
+}
+
+.lens-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  transition: background 0.2s;
+}
+
+.lens-item:last-child { border-bottom: none; }
+.lens-item:hover { background: #ede8df; }
+
+.lens-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.lens-item h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+.lens-item p {
+  font-size: 0.85rem;
+  color: #5a5550;
+  line-height: 1.6;
+}
+
+.pull-quote {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.pull-quote::before {
+  content: '\201C';
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  position: absolute;
+  top: 1rem;
+  left: 1.2rem;
+  line-height: 0;
+  color: var(--accent);
+  opacity: 0.4;
+}
+
+.pull-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.5;
+  padding-left: 1.8rem;
+  color: var(--paper) !important;
+  margin: 0 !important;
+}
+
+/* ===================== CHALLENGE SECTION ===================== */
+#challenge {
+  background: var(--dark);
+}
+
+.challenge-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.challenge-intro-text p {
+  font-size: 1rem;
+  color: var(--text-soft-dark);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.challenge-preview {
+  background: var(--surface);
+  border: 1px solid var(--rule-dark);
+  border-top: 3px solid var(--accent);
+  padding: 2rem;
+}
+
+.challenge-preview h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 1rem;
+}
+
+.challenge-preview p {
+  font-size: 0.9rem;
+  color: var(--text-soft-dark);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+
+.level-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.level-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--rule-dark);
+  color: var(--text-soft-dark);
+}
+
+.level-pill.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ===================== BLOG SECTION ===================== */
+#blog {
+  background: var(--surface);
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule-dark);
+  margin-top: 2.5rem;
+}
+
+.blog-card {
+  background: var(--surface);
+  padding: 2rem;
+  transition: background 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.blog-card:hover { background: var(--surface2); }
+
+.blog-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.blog-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+}
+
+.blog-card p {
+  font-size: 0.85rem;
+  color: var(--text-soft-dark);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.blog-read {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.blog-featured {
+  grid-column: span 2;
+  border-left: 3px solid var(--gold-light);
+}
+
+.blog-featured h3 { font-size: 1.4rem; }
+
+/* ===================== ABOUT SECTION ===================== */
+#about {
+  background: var(--dark);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-left {
+  position: sticky;
+  top: 80px;
+}
+
+.founder-card {
+  background: var(--surface);
+  border: 1px solid var(--rule-dark);
+  overflow: hidden;
+}
+
+.founder-card-header {
+  background: var(--surface2);
+  padding: 2rem;
+  border-bottom: 1px solid var(--rule-dark);
+  text-align: center;
+}
+
+.founder-initial {
+  width: 80px;
+  height: 80px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  margin: 0 auto 1rem;
+}
+
+.founder-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  display: block;
+}
+
+.founder-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--text-soft-dark);
+  display: block;
+  margin-top: 0.3rem;
+}
+
+.founder-card-body { padding: 1.5rem; }
+
+.founder-card-body p {
+  font-size: 0.85rem;
+  color: var(--text-soft-dark);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.credential-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.credential-list li {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--text-soft-dark);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rule-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.credential-list li:last-child { border-bottom: none; }
+.credential-list li::before { content: '→'; color: var(--accent); }
+
+.about-right p {
+  font-size: 1rem;
+  color: var(--text-soft-dark);
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+
+.about-right p strong { color: var(--text-dark); }
+
+/* ===================== JOIN SECTION ===================== */
+#join {
+  background: var(--accent);
+  padding: 5rem 2rem;
+}
+
+.join-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.join-inner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: white;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.join-inner p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.join-form {
+  display: flex;
+  gap: 0;
+  max-width: 480px;
+  margin: 0 auto 1.5rem;
+}
+
+.join-form input {
+  flex: 1;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-right: none;
+  color: white;
+  padding: 0.85rem 1.25rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.join-form input::placeholder { color: rgba(255,255,255,0.5); }
+
+.join-form button {
+  background: white;
+  color: var(--accent);
+  border: none;
+  padding: 0.85rem 1.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.join-form button:hover { background: #f0ebe0; }
+
+.join-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+  background: var(--ink);
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--rule-dark);
+}
+
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.footer-brand .logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  letter-spacing: -0.02em;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.footer-brand .logo-text em { color: var(--accent); font-style: italic; }
+
+.footer-brand p {
+  font-size: 0.85rem;
+  color: var(--text-soft-dark);
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+.footer-col h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.footer-col ul { list-style: none; }
+
+.footer-col ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-col ul li a {
+  font-size: 0.88rem;
+  color: var(--text-soft-dark);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-col ul li a:hover { color: var(--text-dark); }
+
+.footer-bottom {
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bottom span {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.hashtag-footer {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===================== MOBILE ===================== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 60px; left: 0; right: 0;
+    background: rgba(10,9,8,0.98);
+    padding: 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--rule-dark);
+  }
+  .nav-hamburger { display: flex; }
+  .manifesto-grid,
+  .challenge-intro,
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-left { position: static; }
+  .manifesto-right { position: static; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-featured { grid-column: span 1; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .join-form { flex-direction: column; }
+  .join-form input { border-right: 1px solid rgba(255,255,255,0.3); }
+  .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">The <em>GRC</em> Bar</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#challenge">Challenge</a></li>
+    <li><a href="#blog">Insights</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#join" class="nav-cta">Join the Movement</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="toggleNav()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <span class="hero-tag">A Professional Movement for GRC</span>
+    <h1>The<br><em>GRC</em><br><span class="gold">Bar</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">The compliance frameworks are your statutes. The platform is your client. The adversary is opposing counsel. <strong>Stop preparing for the audit — start preparing for the trial.</strong></p>
+    <div class="hero-actions">
+      <a href="#challenge" class="btn-primary">Take the Challenge →</a>
+      <a href="#manifesto" class="btn-outline">Read the Manifesto</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <span class="stat-num">3–5M</span>
+      <span class="stat-label">GRC Professionals Worldwide</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Laws Every GRC Professional Must Master</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-num">2–3yr</span>
+      <span class="stat-label">Frameworks Lag Behind Threat Reality</span>
+    </div>
+    <div class="stat-item reveal">
+      <span class="stat-num">0</span>
+      <span class="stat-label">Excuses for Blind Spots in Your Client</span>
+    </div>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="section-inner">
+    <div class="manifesto-grid">
+      <div class="manifesto-left">
+        <span class="section-label">§ The Manifesto</span>
+        <h2 class="section-title">We Have Been <em>Preparing for the Wrong Thing</em></h2>
+
+        <p>For too long, the GRC profession has been measured by the wrong standard. We count certifications earned. Audits passed. Controls mapped. And we call that success.</p>
+
+        <p>But somewhere in the gap between the checklist and reality — the real risk lives undisturbed. Adversaries don't read our SOC 2 reports looking to help us improve. They read them looking for the seams.</p>
+
+        <div class="pull-quote">
+          <p>A great lawyer doesn't worship the law — they weaponize it in service of their client.</p>
+        </div>
+
+        <p>The GRC profession is one of the most strategically important functions in any organization — and one of the most undervalued. We let that happen by playing small. By hiding behind frameworks. By speaking auditor when we should be speaking business.</p>
+
+        <p>This movement exists to change that. For every GRC professional — from the analyst running their first evidence collection to the VP briefing the board. The standard is the same. The trial lawyer standard.</p>
+
+        <div style="margin-top: 2rem;">
+          <a href="TheGRCBar-Manifesto.html" class="btn-primary" style="background: var(--accent); color: white; padding: 0.85rem 2rem; text-decoration: none; font-size: 0.88rem; display: inline-block;">Read the Full Manifesto →</a>
+        </div>
+      </div>
+
+      <div class="manifesto-right reveal">
+        <div class="three-lens">
+          <div class="lens-item">
+            <span class="lens-num">Law I &nbsp;·&nbsp; The Client</span>
+            <h3>⚖️ Know Your Platform</h3>
+            <p>Your product, platform, or service is your client. No blind spots. No gaps you'd be embarrassed for an adversary to find before you did. A lawyer who lets their client get blindsided has committed malpractice.</p>
+          </div>
+          <div class="lens-item">
+            <span class="lens-num">Law II &nbsp;·&nbsp; The Statute</span>
+            <h3>📜 Command Your Frameworks</h3>
+            <p>Know ISO 27001, FedRAMP, NIST cold. But never confuse the rulebook with the strategy. If you cannot name the attack a control prevents, it is protecting your audit score — not your organization.</p>
+          </div>
+          <div class="lens-item">
+            <span class="lens-num">Law III &nbsp;·&nbsp; The Adversary</span>
+            <h3>🎯 Study Opposing Counsel</h3>
+            <p>Threat actors are not passive. They study your controls for the seams. Real continuous monitoring asks not "are controls in place?" but "are controls holding against real TTPs?" Those are different questions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE -->
+<section id="challenge">
+  <div class="section-inner">
+    <div class="challenge-intro">
+      <div class="challenge-intro-text">
+        <span class="section-label">§ The Challenge</span>
+        <h2 class="section-title">Are You <em>Trial Ready?</em></h2>
+        <p>Real GRC scenarios. Three lenses. No checklists. Test whether you think like a compliance operator — or like a trial lawyer who wins cases.</p>
+        <p>Powered by AI — each response is evaluated by an expert judge across all three lenses. You get specific feedback, a verdict, and a score.</p>
+        <div style="margin-top: 1.5rem;">
+          <a href="TheGRCBar-Challenge.html" class="btn-primary">Enter the Courtroom →</a>
+        </div>
+      </div>
+
+      <div class="challenge-preview reveal">
+        <div style="background: var(--surface); border: 1px solid var(--rule-dark); border-top: 3px solid var(--accent); padding: 2rem;">
+          <h4>Sample Scenario · Executive Level</h4>
+          <p style="font-size: 0.9rem; color: var(--text-soft-dark); line-height: 1.6; margin-bottom: 1.5rem; font-style: italic;">"Your company has deployed AI agents that can autonomously execute actions across internal systems. Security was not involved. The agents run with service account permissions that haven't been reviewed. A user just accidentally deleted a production database table. Leadership wants a governance framework immediately. Where do you start?"</p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <span style="font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.65rem; border: 1px solid var(--rule-dark); color: var(--text-soft-dark);">Analyst</span>
+            <span style="font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.65rem; border: 1px solid var(--rule-dark); color: var(--text-soft-dark);">Manager</span>
+            <span style="font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.65rem; border: 1px solid var(--accent); color: var(--accent);">Executive ✓</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem;">
+            <div style="background: var(--surface2); padding: 0.75rem; text-align: center;">
+              <span style="font-family: 'DM Mono', monospace; font-size: 0.55rem; color: var(--text-soft-dark); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem;">⚖️ Client</span>
+              <span style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--accent);">?/10</span>
+            </div>
+            <div style="background: var(--surface2); padding: 0.75rem; text-align: center;">
+              <span style="font-family: 'DM Mono', monospace; font-size: 0.55rem; color: var(--text-soft-dark); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem;">📜 Statute</span>
+              <span style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light);">?/10</span>
+            </div>
+            <div style="background: var(--surface2); padding: 0.75rem; text-align: center;">
+              <span style="font-family: 'DM Mono', monospace; font-size: 0.55rem; color: var(--text-soft-dark); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.25rem;">🎯 Adversary</span>
+              <span style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #6ab4f5;">?/10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / INSIGHTS -->
+<section id="blog">
+  <div class="section-inner">
+    <span class="section-label">§ Insights</span>
+    <h2 class="section-title">From the <em>Courtroom</em></h2>
+
+    <div class="blog-grid">
+      <a href="grc-lawyer-analogy-blog-v3.html" class="blog-card blog-featured reveal">
+        <span class="blog-tag">Featured · Opinion</span>
+        <h3>Every GRC Professional Should Think Like a Trial Lawyer</h3>
+        <p>The frameworks are your statutes. The platform is your client. The adversary is opposing counsel. Here's the mental model that changes how you approach the entire job — at every level of seniority.</p>
+        <span class="blog-read">Read the Essay →</span>
+      </a>
+
+      <a href="#" class="blog-card reveal">
+        <span class="blog-tag">AI Governance</span>
+        <h3>Governing What You Can't Fully Predict: AI Risk in the Enterprise</h3>
+        <p>Traditional GRC assumes deterministic systems. AI doesn't behave that way. Here's how to build a governance program for systems whose behavior evolves.</p>
+        <span class="blog-read">Coming Soon</span>
+      </a>
+
+      <a href="#" class="blog-card reveal">
+        <span class="blog-tag">Career</span>
+        <h3>From Compliance Operator to Security Executive: The Mindset Shift</h3>
+        <p>The difference between a GRC professional who gets a seat at the table and one who doesn't isn't seniority. It's how they think about the job.</p>
+        <span class="blog-read">Coming Soon</span>
+      </a>
+
+      <a href="#" class="blog-card reveal">
+        <span class="blog-tag">Identity Security</span>
+        <h3>The NHI Problem: Why Machine Credentials Are the New Perimeter</h3>
+        <p>AI agents run with massive permissions. Most organizations haven't even mapped their non-human identity surface. Here's why that matters — and where to start.</p>
+        <span class="blog-read">Coming Soon</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="founder-card reveal">
+          <div class="founder-card-header">
+            <div class="founder-initial">K</div>
+            <span class="founder-name">Kumar Selvaraj</span>
+            <span class="founder-title">Founder · The GRC Bar</span>
+            <span class="founder-title" style="margin-top:0.2rem">VP, Global Security Compliance · Zscaler</span>
+          </div>
+          <div class="founder-card-body">
+            <p>20+ years building GRC programs at the intersection of cloud security, AI governance, and global regulatory strategy.</p>
+            <ul class="credential-list">
+              <li>FedRAMP High · DoD IL5 · CMMC</li>
+              <li>ISO 42001 · AI Governance</li>
+              <li>NIS2 · DORA · IRAP · ISMAP</li>
+              <li>CISA · ISO 27001 Lead Auditor</li>
+              <li>Built 30+ person global GRC org</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <span class="section-label">§ About the Movement</span>
+        <h2 class="section-title">Why <em>The GRC Bar</em> Exists</h2>
+
+        <p>I built Zscaler's compliance program from a blank page. Eight years later it's a 30+ person global organization earning FedRAMP High, DoD IL5, and 20+ sovereign certifications across four continents.</p>
+
+        <p>Along the way I kept seeing the same pattern — talented GRC professionals who knew the frameworks cold but struggled to be heard in the room. Not because their work wasn't important. Because they were communicating in compliance language to people who spoke business.</p>
+
+        <p><strong>The GRC profession is one of the most strategically important functions in any organization. And one of the most undervalued.</strong> We let that happen by playing small.</p>
+
+        <p>The lawyer analogy changed how I think about this work. A great trial lawyer doesn't hide behind statutes. They master the law, study the adversary, and build the strongest possible case for their client. That's exactly what great GRC looks like — and it's a standard available to every professional in this field, from first-year analyst to CISO.</p>
+
+        <p><strong>#TheGRCBar is a movement to showcase GRC professionals doing exceptional work, challenge all of us to think bigger, and prove that compliance is competitive advantage — not a cost center.</strong></p>
+
+        <p>Every level. Every title. Every industry. The bar is the same. Let's raise it together.</p>
+
+        <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="#join" class="btn-primary">Join the Movement →</a>
+          <a href="https://linkedin.com/in/kumaraswamyin" class="btn-outline" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join">
+  <div class="join-inner">
+    <h2>Ready to Raise<br>the Bar?</h2>
+    <p>Join the movement. Get new scenarios, insights, and spotlights on GRC professionals doing exceptional work — delivered to your inbox.</p>
+    <div class="join-form">
+      <input type="email" placeholder="your@email.com" id="emailInput">
+      <button onclick="handleJoin()">Join #TheGRCBar</button>
+    </div>
+    <div class="join-note" id="joinNote">No spam. No vendor pitches. Just the profession at its best.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-text">The <em>GRC</em> Bar</span>
+      <p>A professional movement for every GRC professional — from analyst to CISO. Think like a trial lawyer. Know your client. Command your statutes. Study your adversary.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#manifesto">The Manifesto</a></li>
+        <li><a href="TheGRCBar-Challenge.html">Take the Challenge</a></li>
+        <li><a href="#blog">Insights</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#join">Join the Movement</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>The Three Laws</h4>
+      <ul>
+        <li><a href="#manifesto">⚖️ Know Your Client</a></li>
+        <li><a href="#manifesto">📜 Command Your Statutes</a></li>
+        <li><a href="#manifesto">🎯 Study Your Adversary</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 TheGRCBar.org · All rights reserved</span>
+    <span class="hashtag-footer">#TheGRCBar</span>
+  </div>
+</footer>
+
+<script>
+// Nav toggle
+function toggleNav() {
+  const links = document.getElementById('navLinks');
+  links.classList.toggle('open');
+}
+
+// Smooth reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(el => observer.observe(el));
+
+// Join form
+function handleJoin() {
+  const email = document.getElementById('emailInput').value;
+  const note = document.getElementById('joinNote');
+  if (email && email.includes('@')) {
+    note.textContent = '✓ You\'re in. Welcome to #TheGRCBar.';
+    note.style.color = 'rgba(255,255,255,0.9)';
+    document.getElementById('emailInput').value = '';
+  } else {
+    note.textContent = 'Please enter a valid email address.';
+    note.style.color = 'rgba(255,200,150,0.9)';
+  }
+}
+
+// Active nav on scroll
+const sections = document.querySelectorAll('section[id], div[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    if (window.scrollY >= section.offsetTop - 80) {
+      current = section.getAttribute('id');
+    }
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text-dark)' : '';
+  });
+});
+</script>
+
+</body>
+</html>

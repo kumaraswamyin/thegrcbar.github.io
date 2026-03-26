@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The GRC Bar — Challenge Your Thinking</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0908;
+    --paper: #0f0e0c;
+    --surface: #1a1815;
+    --surface2: #242018;
+    --accent: #c8392b;
+    --gold: #c9a84c;
+    --muted: #6b6560;
+    --text: #e8e2d9;
+    --text-soft: #a09890;
+    --rule: #2a2520;
+    --green: #2d7a4f;
+    --green-light: #3dab6e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* Subtle texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 2rem; }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2.5rem;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .logo-text em { color: var(--accent); font-style: italic; }
+
+  .logo-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.15rem 0.5rem;
+    opacity: 0.8;
+  }
+
+  .score-display {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    letter-spacing: 0.08em;
+    text-align: right;
+  }
+
+  .score-display strong {
+    color: var(--gold);
+    font-size: 1.1rem;
+    display: block;
+  }
+
+  /* Screens */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* Welcome Screen */
+  .welcome-hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+
+  .welcome-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+  }
+
+  .welcome-hero h1 em { color: var(--accent); font-style: italic; }
+
+  .welcome-hero p {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  /* The Three Pillars */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 2.5rem 0;
+  }
+
+  .pillar {
+    background: var(--surface);
+    padding: 1.5rem;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .pillar:hover { background: var(--surface2); }
+
+  .pillar-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .pillar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .pillar h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .pillar p {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* Level selector */
+  .level-select {
+    margin: 2rem 0;
+  }
+
+  .level-select h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .levels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .level-btn {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    color: var(--text);
+    padding: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .level-btn:hover, .level-btn.selected {
+    border-color: var(--gold);
+    background: var(--surface2);
+  }
+
+  .level-btn.selected { border-color: var(--accent); }
+
+  .level-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .level-desc {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    line-height: 1.4;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.9rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: #a82f25; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-soft);
+    border: 1px solid var(--rule);
+    padding: 0.9rem 2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--text-soft); color: var(--text); }
+
+  /* Challenge Screen */
+  .challenge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .challenge-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+
+  .challenge-meta strong { color: var(--gold); }
+
+  .progress-bar {
+    height: 2px;
+    background: var(--rule);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+
+  /* Scenario card */
+  .scenario-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--gold);
+    padding: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .scenario-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .scenario-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* Framework lens prompts */
+  .lens-prompts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .lens-prompt {
+    background: var(--surface2);
+    border: 1px solid var(--rule);
+    padding: 0.85rem;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  .lens-prompt strong {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .lens-1 strong { color: var(--accent); }
+  .lens-2 strong { color: var(--gold); }
+  .lens-3 strong { color: #6ab4f5; }
+
+  /* Answer area */
+  .answer-area {
+    margin: 1.5rem 0;
+  }
+
+  .answer-area label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .answer-area textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    padding: 1rem;
+    resize: vertical;
+    min-height: 130px;
+    line-height: 1.7;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .answer-area textarea:focus { border-color: var(--gold); }
+  .answer-area textarea::placeholder { color: var(--muted); }
+
+  .answer-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .char-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* AI Feedback */
+  .feedback-panel {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    margin-top: 1.5rem;
+    overflow: hidden;
+    display: none;
+  }
+
+  .feedback-panel.visible { display: block; animation: slideIn 0.3s ease; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .feedback-header {
+    background: var(--surface2);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .feedback-header-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+
+  .verdict-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    font-weight: 500;
+  }
+
+  .verdict-strong { background: #1a3d2a; color: var(--green-light); }
+  .verdict-developing { background: #3d2e10; color: #d4a030; }
+  .verdict-needs-work { background: #3d1a1a; color: #e06060; }
+
+  .feedback-body { padding: 1.25rem; }
+
+  .feedback-scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .score-item {
+    background: var(--surface2);
+    padding: 0.65rem 0.75rem;
+    text-align: center;
+  }
+
+  .score-item .s-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .score-item .s-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .score-item.s1 .s-val { color: var(--accent); }
+  .score-item.s2 .s-val { color: var(--gold); }
+  .score-item.s3 .s-val { color: #6ab4f5; }
+
+  .feedback-text {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.7;
+    white-space: pre-wrap;
+  }
+
+  .feedback-text p { margin-bottom: 0.8rem; }
+
+  .loading-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    color: var(--text-soft);
+    font-size: 0.85rem;
+  }
+
+  .loading-dots { display: flex; gap: 4px; }
+  .loading-dots span {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pulse {
+    0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1); }
+  }
+
+  .next-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Results screen */
+  .results-hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+
+  .final-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .final-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+
+  .results-verdict {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--surface);
+    border-left: 3px solid var(--gold);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-soft);
+  }
+
+  .results-verdict strong { color: var(--text); }
+
+  .score-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    margin: 1.5rem 0;
+  }
+
+  .breakdown-item {
+    background: var(--surface);
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .breakdown-item .b-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .breakdown-item .b-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+
+  .b1 .b-num { color: var(--accent); }
+  .b2 .b-num { color: var(--gold); }
+  .b3 .b-num { color: #6ab4f5; }
+
+  .results-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .pillars, .levels, .lens-prompts, .feedback-scores, .score-breakdown { grid-template-columns: 1fr; }
+    .results-actions { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-text">The <em>GRC</em> Bar</span>
+      <span class="logo-tag">Challenge</span>
+    </div>
+    <div class="score-display" id="headerScore" style="display:none">
+      <strong id="headerScoreVal">0</strong>
+      pts earned
+    </div>
+  </header>
+
+  <!-- SCREEN 1: Welcome -->
+  <div class="screen active" id="screen-welcome">
+    <div class="welcome-hero">
+      <h1>Are You <em>Trial Ready?</em></h1>
+      <p>Real GRC scenarios. Three lenses. No checklists. Test whether you think like a compliance operator — or like a trial lawyer who wins cases.</p>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-icon">⚖️</span>
+        <span class="pillar-label">Lens 1</span>
+        <h3>The Client</h3>
+        <p>Your product, platform, and the customers who depend on it. Protect what actually matters.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">📜</span>
+        <span class="pillar-label">Lens 2</span>
+        <h3>The Statute</h3>
+        <p>Frameworks are your tools, not your master. Weaponize them — don't worship them.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🎯</span>
+        <span class="pillar-label">Lens 3</span>
+        <h3>The Adversary</h3>
+        <p>They're studying your controls right now. Are you thinking like they do?</p>
+      </div>
+    </div>
+
+    <div class="level-select">
+      <h3>Choose your level</h3>
+      <div class="levels">
+        <button class="level-btn selected" data-level="analyst" onclick="selectLevel(this)">
+          <span class="level-name">Analyst</span>
+          <span class="level-desc">Entry-level scenarios. Building the instinct for the first time.</span>
+        </button>
+        <button class="level-btn" data-level="manager" onclick="selectLevel(this)">
+          <span class="level-name">Manager</span>
+          <span class="level-desc">Mid-level. Balancing frameworks, risk owners, and business pressure.</span>
+        </button>
+        <button class="level-btn" data-level="executive" onclick="selectLevel(this)">
+          <span class="level-name">Executive</span>
+          <span class="level-desc">VP/CISO-level. AI-era threats, board stakes, adversarial thinking.</span>
+        </button>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 2rem;">
+      <button class="btn-primary" onclick="startChallenge()">Enter the Courtroom →</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: Challenge -->
+  <div class="screen" id="screen-challenge">
+    <div class="challenge-header">
+      <div class="challenge-meta">
+        Scenario <strong id="questionNum">1</strong> of <strong id="totalNum">5</strong>
+        &nbsp;·&nbsp; Level: <strong id="levelLabel">Analyst</strong>
+      </div>
+      <div class="challenge-meta">
+        Score: <strong id="currentScore">0</strong> pts
+      </div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+
+    <div class="scenario-card">
+      <span class="scenario-tag" id="scenarioTag">Scenario · Compliance Gap</span>
+      <p class="scenario-text" id="scenarioText">Loading scenario...</p>
+    </div>
+
+    <div class="lens-prompts">
+      <div class="lens-prompt lens-1">
+        <strong>⚖️ The Client</strong>
+        What is the real business / platform risk here? Who gets hurt if this goes wrong?
+      </div>
+      <div class="lens-prompt lens-2">
+        <strong>📜 The Statute</strong>
+        Which framework applies? How do you use it — not hide behind it?
+      </div>
+      <div class="lens-prompt lens-3">
+        <strong>🎯 The Adversary</strong>
+        How would an attacker exploit this situation? What are they actually after?
+      </div>
+    </div>
+
+    <div class="answer-area">
+      <label>Your Analysis — Think through all three lenses</label>
+      <textarea id="userAnswer" placeholder="Walk through your thinking... What's the real risk to the client? Which frameworks are relevant and how would you use them? How would an adversary approach this gap?" oninput="updateCharCount()"></textarea>
+      <div class="answer-actions">
+        <button class="btn-primary" id="submitBtn" onclick="submitAnswer()">Submit for Review →</button>
+        <span class="char-count" id="charCount">0 chars</span>
+      </div>
+    </div>
+
+    <div class="feedback-panel" id="feedbackPanel">
+      <div class="feedback-header">
+        <span class="feedback-header-left">⚖️ The Verdict</span>
+        <span class="verdict-badge" id="verdictBadge">—</span>
+      </div>
+      <div class="feedback-body">
+        <div id="loadingIndicator" class="loading-indicator">
+          <div class="loading-dots"><span></span><span></span><span></span></div>
+          <span>The judge is reviewing your argument...</span>
+        </div>
+        <div id="feedbackContent" style="display:none">
+          <div class="feedback-scores">
+            <div class="score-item s1">
+              <span class="s-label">⚖️ Client Awareness</span>
+              <span class="s-val" id="score1">—</span>
+            </div>
+            <div class="score-item s2">
+              <span class="s-label">📜 Framework Use</span>
+              <span class="s-val" id="score2">—</span>
+            </div>
+            <div class="score-item s3">
+              <span class="s-label">🎯 Adversarial Thinking</span>
+              <span class="s-val" id="score3">—</span>
+            </div>
+          </div>
+          <div class="feedback-text" id="feedbackText"></div>
+          <div class="next-actions">
+            <button class="btn-primary" id="nextBtn" onclick="nextQuestion()">Next Scenario →</button>
+            <button class="btn-secondary" onclick="skipQuestion()">Skip</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: Results -->
+  <div class="screen" id="screen-results">
+    <div class="results-hero">
+      <div class="final-label">Final Score</div>
+      <span class="final-score" id="finalScore">0</span>
+      <div class="final-label">out of <span id="maxScore">500</span> points</div>
+    </div>
+
+    <div class="results-verdict" id="resultsVerdict"></div>
+
+    <div class="score-breakdown">
+      <div class="breakdown-item b1">
+        <span class="b-num" id="avgClient">—</span>
+        <span class="b-label">⚖️ Avg Client Score</span>
+      </div>
+      <div class="breakdown-item b2">
+        <span class="b-num" id="avgFramework">—</span>
+        <span class="b-label">📜 Avg Framework Score</span>
+      </div>
+      <div class="breakdown-item b3">
+        <span class="b-num" id="avgAdversary">—</span>
+        <span class="b-label">🎯 Avg Adversary Score</span>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn-primary" onclick="restartChallenge()">Challenge Again →</button>
+      <button class="btn-secondary" onclick="changeLevel()">Try Different Level</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let selectedLevel = 'analyst';
+let currentQuestion = 0;
+let totalQuestions = 5;
+let scores = [];
+let scenarioScores = { client: [], framework: [], adversary: [] };
+let currentScenario = null;
+let totalScore = 0;
+
+// ============================================================
+// SCENARIOS BANK
+// ============================================================
+const scenarios = {
+  analyst: [
+    {
+      tag: "Scenario · Evidence Gap",
+      text: "You're preparing for your company's annual SOC 2 Type II audit. Three days before the auditor arrives, you discover that access review logs for a critical system were not collected for two months due to a misconfigured tool. The system contains customer PII. Your manager says: 'Just document it as a gap and move on — we'll fix it next year.' What do you do, and how do you think about the risk?"
+    },
+    {
+      tag: "Scenario · Vendor Risk",
+      text: "A business team wants to onboard a new SaaS vendor quickly — the contract is being rushed through in 48 hours. The vendor has a SOC 2 Type I report (not Type II) and their privacy policy is vague on subprocessors. The business owner says security review is 'optional' for this size of vendor. How do you handle this and what's the real risk you're protecting against?"
+    },
+    {
+      tag: "Scenario · Policy Exception",
+      text: "An engineering team requests a policy exception to store API keys in plaintext configuration files for a new microservice, because implementing secrets management 'will delay the launch by two weeks.' The service will handle payment processing. They argue the server is 'not internet-facing.' How do you respond, and what three-lens thinking applies here?"
+    },
+    {
+      tag: "Scenario · Audit Finding",
+      text: "During an internal audit you find that privileged access to a production database has not been reviewed in 14 months — significantly beyond the quarterly requirement in your policy. When you raise it, the DBA team says they're too busy and access reviews 'never find anything anyway.' What is your argument for why this matters, and what steps do you take?"
+    },
+    {
+      tag: "Scenario · Compliance Pressure",
+      text: "Your CISO asks you to mark a control as 'compliant' in the GRC tool before remediation is complete, because a major customer audit is happening next week and the customer dashboard shows the control as 'in progress.' The CISO says: 'We're 90% there — close enough.' How do you respond and what is at stake?"
+    }
+  ],
+  manager: [
+    {
+      tag: "Scenario · Business vs. Security",
+      text: "Your company is launching a new AI-powered product feature in 10 days. During security review you identify that the feature sends customer data to a third-party AI API provider whose data processing agreement has not been executed — a clear GDPR violation for your EU customers. The product team says delaying the launch will cost $2M in revenue. The legal team says 'get it fixed fast.' What is your risk recommendation to leadership, and how do you frame it in business terms?"
+    },
+    {
+      tag: "Scenario · ConMon Gap",
+      text: "You manage the FedRAMP continuous monitoring program. Your ISSO flags that the monthly vulnerability scanning report shows 47 high-severity findings — up from 12 last month — mostly in containerized workloads that were recently migrated. The engineering team says they'll 'get to it next sprint.' Your POA&M deadline to the agency is in 15 days. How do you think about the real risk here and what is your action plan?"
+    },
+    {
+      tag: "Scenario · Framework Conflict",
+      text: "Your company is pursuing both ISO 27001 certification and StateRAMP authorization simultaneously. The StateRAMP control baseline requires you to disable a feature that ISO 27001's Annex A actually recommends enabling. Your team is paralyzed trying to satisfy both. Engineering wants one answer. How do you resolve this conflict and what does smart framework use look like here?"
+    },
+    {
+      tag: "Scenario · Supply Chain Risk",
+      text: "A critical open-source library used across 40% of your production services has just published a CVE with a CVSS score of 9.8 — a remote code execution vulnerability. Patching requires code changes across 12 teams. Engineering estimates full remediation will take 3-4 weeks. Two of those services handle healthcare data covered by HIPAA. How do you triage this, and what is your communication to the CISO?"
+    },
+    {
+      tag: "Scenario · AI Risk",
+      text: "Your company is deploying an internal AI assistant that can access HR data to answer employee questions. The model is hosted by a third-party LLM provider. During testing, a red team member discovers that the model can be prompted to reveal salary information for specific employees when asked in a certain way. The HR team loves the tool and wants to launch next week. What is your risk analysis and recommendation?"
+    }
+  ],
+  executive: [
+    {
+      tag: "Scenario · Board Advisory",
+      text: "You are VP of Security. Three days before a board meeting, a critical ransomware incident hits a competitor in your industry — full operational shutdown, $80M in damages. Your board is now asking for an emergency briefing on your company's posture. You have 48 hours to prepare. The CEO asks: 'Are we safe?' You know your backup program has not been tested in 11 months and your incident response plan was last updated 18 months ago. How do you prepare your briefing, and what do you tell the board?"
+    },
+    {
+      tag: "Scenario · AI Platform Governance",
+      text: "Your company has just deployed AI agents that can autonomously execute actions across internal systems — creating tickets, modifying records, triggering workflows — based on natural language instructions from employees. Security has not been involved in the design. The agents run with service account permissions that haven't been reviewed. Three months in, a user accidentally instructed an agent to delete a production database table. Leadership now wants a governance framework 'immediately.' How do you think about building it and where do you start?"
+    },
+    {
+      tag: "Scenario · Sovereign Cloud Expansion",
+      text: "Your CISO has committed to launching a sovereign cloud offering in Germany, Japan, and Saudi Arabia within 12 months to win three major enterprise deals. Each jurisdiction has different data residency, encryption, personnel security, and government access requirements. Your current team of 8 manages your existing US and EU compliance programs at capacity. Legal says the contracts are almost signed. How do you build the strategic plan, and what are the first three decisions you need to make?"
+    },
+    {
+      tag: "Scenario · NHI Attack",
+      text: "Your security operations team alerts you that a service account with broad permissions across your cloud data platform has been making unusual API calls for the past 72 hours — exfiltrating data to an external endpoint. Initial analysis shows the service account was provisioned 14 months ago for a project that was cancelled, never deprovisioned, and its credentials were embedded in a GitHub repository that was briefly made public 6 months ago. This is likely a nation-state actor. You have 30 minutes before the CEO joins a call. What do you do, and what does this tell you about your NHI governance posture?"
+    },
+    {
+      tag: "Scenario · Compliance as Strategy",
+      text: "A Fortune 100 prospect has informed you that they are choosing between your platform and a competitor. Their final selection criterion is security posture — specifically, they need FedRAMP High, ISO 42001 (AI governance), and evidence of a mature ConMon program. Your platform currently has FedRAMP Moderate and ISO 27001 only. The deal is worth $40M. Your CEO asks you to present a plan to close the compliance gap fast enough to win. What is your 90-day strategy, and how do you use compliance as a competitive weapon rather than a checkbox?"
+    }
+  ]
+};
+
+// ============================================================
+// UI FUNCTIONS
+// ============================================================
+function selectLevel(btn) {
+  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedLevel = btn.dataset.level;
+}
+
+function startChallenge() {
+  currentQuestion = 0;
+  totalScore = 0;
+  scores = [];
+  scenarioScores = { client: [], framework: [], adversary: [] };
+  
+  showScreen('screen-challenge');
+  document.getElementById('headerScore').style.display = 'block';
+  
+  const levelNames = { analyst: 'Analyst', manager: 'Manager', executive: 'Executive' };
+  document.getElementById('levelLabel').textContent = levelNames[selectedLevel];
+  document.getElementById('totalNum').textContent = totalQuestions;
+  
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const pool = scenarios[selectedLevel];
+  currentScenario = pool[currentQuestion % pool.length];
+  
+  document.getElementById('questionNum').textContent = currentQuestion + 1;
+  document.getElementById('scenarioTag').textContent = currentScenario.tag;
+  document.getElementById('scenarioText').textContent = currentScenario.text;
+  document.getElementById('userAnswer').value = '';
+  document.getElementById('charCount').textContent = '0 chars';
+  document.getElementById('feedbackPanel').classList.remove('visible');
+  document.getElementById('feedbackContent').style.display = 'none';
+  document.getElementById('loadingIndicator').style.display = 'flex';
+  document.getElementById('submitBtn').disabled = false;
+  
+  const progress = (currentQuestion / totalQuestions) * 100;
+  document.getElementById('progressFill').style.width = progress + '%';
+  document.getElementById('currentScore').textContent = totalScore;
+  document.getElementById('headerScoreVal').textContent = totalScore;
+}
+
+function updateCharCount() {
+  const len = document.getElementById('userAnswer').value.length;
+  document.getElementById('charCount').textContent = len + ' chars';
+}
+
+async function submitAnswer() {
+  const answer = document.getElementById('userAnswer').value.trim();
+  if (answer.length < 50) {
+    document.getElementById('userAnswer').style.borderColor = 'var(--accent)';
+    setTimeout(() => document.getElementById('userAnswer').style.borderColor = '', 1500);
+    return;
+  }
+  
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('feedbackPanel').classList.add('visible');
+  document.getElementById('loadingIndicator').style.display = 'flex';
+  document.getElementById('feedbackContent').style.display = 'none';
+  
+  window.scrollTo({ top: document.getElementById('feedbackPanel').offsetTop - 20, behavior: 'smooth' });
+  
+  try {
+    const feedback = await callClaudeAPI(currentScenario, answer, selectedLevel);
+    displayFeedback(feedback);
+  } catch (err) {
+    displayError();
+  }
+}
+
+async function callClaudeAPI(scenario, answer, level) {
+  const systemPrompt = `You are the judge at The GRC Bar — a professional development challenge for GRC (Governance, Risk, and Compliance) professionals. Your role is to evaluate their responses through the "Trial Lawyer Framework":
+
+THE THREE LENSES:
+1. THE CLIENT (⚖️): The product/platform/service being defended. Does the candidate understand what's actually at risk for the business and customers?
+2. THE STATUTE (📜): The compliance framework/law. Did they use it strategically as a tool, not hide behind it as a crutch?
+3. THE ADVERSARY (🎯): The threat actor. Did they think adversarially — how would an attacker exploit this?
+
+SCORING (each lens 1-10):
+- 9-10: Exceptional, adversarial thinking, sees beyond the obvious
+- 7-8: Strong, shows genuine security instinct
+- 5-6: Developing, framework-aware but limited adversarial thinking
+- 3-4: Compliance-focused only, missing the real risk
+- 1-2: Checkbox mentality, dangerously incomplete
+
+LEVEL CONTEXT: ${level} level — calibrate expectations accordingly.
+
+Respond ONLY in this exact JSON format:
+{
+  "clientScore": <1-10>,
+  "frameworkScore": <1-10>,
+  "adversaryScore": <1-10>,
+  "verdict": "<STRONG ARGUMENT|DEVELOPING CASE|NEEDS WORK>",
+  "feedback": "<3-4 paragraphs of specific, direct, expert feedback. Para 1: what they got right. Para 2: what they missed — be specific about the adversarial angle they ignored. Para 3: the key insight that would have made this a winning argument. Para 4 (optional): one concrete thing to do differently next time. Be direct, be expert, no fluff.>"
+}`;
+
+  const userPrompt = `SCENARIO: ${scenario.text}
+
+CANDIDATE'S RESPONSE: ${answer}`;
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1000,
+      system: systemPrompt,
+      messages: [{ role: "user", content: userPrompt }]
+    })
+  });
+
+  const data = await response.json();
+  const text = data.content[0].text;
+  const clean = text.replace(/```json|```/g, '').trim();
+  return JSON.parse(clean);
+}
+
+function displayFeedback(feedback) {
+  document.getElementById('loadingIndicator').style.display = 'none';
+  document.getElementById('feedbackContent').style.display = 'block';
+  
+  document.getElementById('score1').textContent = feedback.clientScore + '/10';
+  document.getElementById('score2').textContent = feedback.frameworkScore + '/10';
+  document.getElementById('score3').textContent = feedback.adversaryScore + '/10';
+  
+  const badge = document.getElementById('verdictBadge');
+  badge.textContent = feedback.verdict;
+  badge.className = 'verdict-badge';
+  if (feedback.verdict === 'STRONG ARGUMENT') badge.classList.add('verdict-strong');
+  else if (feedback.verdict === 'DEVELOPING CASE') badge.classList.add('verdict-developing');
+  else badge.classList.add('verdict-needs-work');
+  
+  // Format feedback text
+  const paragraphs = feedback.feedback.split('\n').filter(p => p.trim());
+  document.getElementById('feedbackText').innerHTML = paragraphs.map(p => `<p>${p}</p>`).join('');
+  
+  // Calculate round score (max 100 per question)
+  const roundScore = Math.round((feedback.clientScore + feedback.frameworkScore + feedback.adversaryScore) / 30 * 100);
+  totalScore += roundScore;
+  scores.push(roundScore);
+  scenarioScores.client.push(feedback.clientScore);
+  scenarioScores.framework.push(feedback.frameworkScore);
+  scenarioScores.adversary.push(feedback.adversaryScore);
+  
+  document.getElementById('currentScore').textContent = totalScore;
+  document.getElementById('headerScoreVal').textContent = totalScore;
+  
+  const isLast = currentQuestion + 1 >= totalQuestions;
+  document.getElementById('nextBtn').textContent = isLast ? 'See Final Verdict →' : 'Next Scenario →';
+  document.getElementById('nextBtn').onclick = isLast ? showResults : nextQuestion;
+}
+
+function displayError() {
+  document.getElementById('loadingIndicator').style.display = 'none';
+  document.getElementById('feedbackContent').style.display = 'block';
+  document.getElementById('feedbackText').innerHTML = '<p style="color:var(--accent)">Unable to reach the judge. Please check your connection and try again.</p>';
+  document.getElementById('submitBtn').disabled = false;
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  if (currentQuestion >= totalQuestions) {
+    showResults();
+  } else {
+    loadQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function skipQuestion() {
+  currentQuestion++;
+  if (currentQuestion >= totalQuestions) {
+    showResults();
+  } else {
+    loadQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function showResults() {
+  showScreen('screen-results');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  const maxPossible = totalQuestions * 100;
+  document.getElementById('finalScore').textContent = totalScore;
+  document.getElementById('maxScore').textContent = maxPossible;
+  
+  const avg = s => s.length ? Math.round(s.reduce((a,b) => a+b, 0) / s.length * 10) / 10 : '—';
+  document.getElementById('avgClient').textContent = avg(scenarioScores.client) + '/10';
+  document.getElementById('avgFramework').textContent = avg(scenarioScores.framework) + '/10';
+  document.getElementById('avgAdversary').textContent = avg(scenarioScores.adversary) + '/10';
+  
+  const pct = totalScore / maxPossible;
+  let verdict = '';
+  if (pct >= 0.85) {
+    verdict = '<strong>Ready to argue any case.</strong> You think like a trial lawyer — adversarially, strategically, and always in service of the client. Your instinct to look past the framework and into the real threat is what separates a security executive from a compliance operator. <em>#TheGRCBar recognizes you.</em>';
+  } else if (pct >= 0.65) {
+    verdict = '<strong>A developing case.</strong> Your framework knowledge is solid and your client awareness is growing. The gap is adversarial thinking — you\'re still spending too much time in the statute and not enough time in opposing counsel\'s head. Keep sharpening that lens.';
+  } else if (pct >= 0.45) {
+    verdict = '<strong>Back to preparation.</strong> You understand the rules of the courtroom but you\'re not yet building a case. The adversary doesn\'t care what your SOC 2 says — they care where the seams are. Practice asking "how would an attacker use this gap?" before you ask "which control covers this?"';
+  } else {
+    verdict = '<strong>The fundamentals need work.</strong> Right now you\'re preparing for the audit, not the trial. Start with one question every time you review a control: "What actual attack does this prevent?" If you can\'t answer it, neither can your program.';
+  }
+  document.getElementById('resultsVerdict').innerHTML = verdict;
+}
+
+function restartChallenge() {
+  currentQuestion = 0;
+  totalScore = 0;
+  scores = [];
+  scenarioScores = { client: [], framework: [], adversary: [] };
+  startChallenge();
+}
+
+function changeLevel() {
+  showScreen('screen-welcome');
+  document.getElementById('headerScore').style.display = 'none';
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>
