@@ -1026,50 +1026,26 @@ async function submitAnswer() {
 }
 
 async function callClaudeAPI(scenario, answer, level) {
-  const systemPrompt = `You are the judge at The GRC Bar — a professional development challenge for GRC (Governance, Risk, and Compliance) professionals. Your role is to evaluate their responses through the "Trial Lawyer Framework":
+  // ── Calls your secure Cloudflare Worker proxy ──
+  // Replace the URL below with your actual Worker URL after deployment
+  const PROXY_URL = 'https://grcbar-judge.kumaraswamyin.workers.dev/api/judge';
 
-THE THREE LENSES:
-1. THE CLIENT (⚖️): The product/platform/service being defended. Does the candidate understand what's actually at risk for the business and customers?
-2. THE STATUTE (📜): The compliance framework/law. Did they use it strategically as a tool, not hide behind it as a crutch?
-3. THE ADVERSARY (🎯): The threat actor. Did they think adversarially — how would an attacker exploit this?
-
-SCORING (each lens 1-10):
-- 9-10: Exceptional, adversarial thinking, sees beyond the obvious
-- 7-8: Strong, shows genuine security instinct
-- 5-6: Developing, framework-aware but limited adversarial thinking
-- 3-4: Compliance-focused only, missing the real risk
-- 1-2: Checkbox mentality, dangerously incomplete
-
-LEVEL CONTEXT: ${level} level — calibrate expectations accordingly.
-
-Respond ONLY in this exact JSON format:
-{
-  "clientScore": <1-10>,
-  "frameworkScore": <1-10>,
-  "adversaryScore": <1-10>,
-  "verdict": "<STRONG ARGUMENT|DEVELOPING CASE|NEEDS WORK>",
-  "feedback": "<3-4 paragraphs of specific, direct, expert feedback. Para 1: what they got right. Para 2: what they missed — be specific about the adversarial angle they ignored. Para 3: the key insight that would have made this a winning argument. Para 4 (optional): one concrete thing to do differently next time. Be direct, be expert, no fluff.>"
-}`;
-
-  const userPrompt = `SCENARIO: ${scenario.text}
-
-CANDIDATE'S RESPONSE: ${answer}`;
-
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+  const response = await fetch(PROXY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      system: systemPrompt,
-      messages: [{ role: "user", content: userPrompt }]
+      scenario: scenario.text,
+      answer: answer,
+      level: level
     })
   });
 
-  const data = await response.json();
-  const text = data.content[0].text;
-  const clean = text.replace(/```json|```/g, '').trim();
-  return JSON.parse(clean);
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || 'Proxy error');
+  }
+
+  return await response.json();
 }
 
 function displayFeedback(feedback) {
