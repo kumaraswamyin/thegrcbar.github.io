@@ -72,7 +72,7 @@
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
     font-weight: 900;
-    color: var(--text);
+    color: var(--ink);
     letter-spacing: -0.02em;
   }
 
@@ -120,6 +120,7 @@
     line-height: 1.1;
     letter-spacing: -0.02em;
     margin-bottom: 1.2rem;
+    color: var(--ink);
   }
 
   .welcome-hero h1 em { color: var(--accent); font-style: italic; }
@@ -205,26 +206,49 @@
   .level-btn {
     background: #1e3055;
     border: 1px solid var(--rule);
+    border-left: 3px solid transparent;
     color: var(--text);
     padding: 1rem;
     cursor: pointer;
     text-align: left;
     transition: all 0.2s;
     font-family: 'DM Sans', sans-serif;
+    position: relative;
   }
 
-  .level-btn:hover, .level-btn.selected {
+  .level-btn:hover {
     border-color: var(--gold);
+    border-left-color: var(--gold);
     background: #243560;
   }
 
-  .level-btn.selected { border-color: var(--accent); }
+  .level-btn.selected {
+    border-color: var(--accent);
+    border-left: 4px solid var(--accent);
+    background: #2a3f6e;
+    box-shadow: 0 0 0 1px var(--accent), inset 0 0 20px rgba(201, 149, 42, 0.07);
+  }
+
+  .level-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 0.6rem;
+    right: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .level-btn.selected .level-name {
+    color: var(--accent);
+  }
 
   .level-name {
     font-weight: 600;
     font-size: 0.9rem;
     display: block;
     margin-bottom: 0.3rem;
+    transition: color 0.2s;
   }
 
   .level-desc {
@@ -904,6 +928,18 @@ const scenarios = {
     {
       tag: "Scenario · Compliance Pressure",
       text: "Your CISO asks you to mark a control as 'compliant' in the GRC tool before remediation is complete, because a major customer audit is happening next week and the customer dashboard shows the control as 'in progress.' The CISO says: 'We're 90% there — close enough.' How do you respond and what is at stake?"
+    },
+    {
+      tag: "Scenario · Insider Threat Signal",
+      text: "An employee who submitted their resignation two weeks ago has, in the past 72 hours, downloaded 4.2GB of files from a shared project drive — significantly above their normal baseline. The files include customer contracts, pricing models, and product roadmaps. HR says termination is still 10 days away and 'nothing has been proven.' IT says they can't revoke access until the official last day. You're a GRC analyst who flagged the anomaly. What do you do with this information, and how do you think about the risk to the client?"
+    },
+    {
+      tag: "Scenario · Data Classification Gap",
+      text: "During a routine review, you discover that a customer-facing team has been sharing internal product performance reports — including unreleased feature metrics and enterprise customer usage data — in a public-facing Slack channel connected to a joint workspace with a third-party partner. The channel has been active for four months. No data classification policy explicitly covers Slack. The team lead says the data 'isn't that sensitive.' How do you assess what actually happened, and what three-lens argument do you make for why this matters?"
+    },
+    {
+      tag: "Scenario · Third-Party Access",
+      text: "A managed security service provider (MSSP) your company uses for 24/7 SOC monitoring has had persistent, privileged read access to your SIEM and EDR platforms for 18 months. During a vendor review you discover their contract expired 6 months ago, their SOC 2 Type II report is 14 months old, and no one on your team can confirm whether their personnel who hold access credentials have had background checks. The MSSP says renewing the contract is 'just a formality.' What is the actual risk here, and what do you recommend?"
     }
   ],
   manager: [
@@ -926,6 +962,18 @@ const scenarios = {
     {
       tag: "Scenario · AI Risk",
       text: "Your company is deploying an internal AI assistant that can access HR data to answer employee questions. The model is hosted by a third-party LLM provider. During testing, a red team member discovers that the model can be prompted to reveal salary information for specific employees when asked in a certain way. The HR team loves the tool and wants to launch next week. What is your risk analysis and recommendation?"
+    },
+    {
+      tag: "Scenario · Risk Acceptance Escalation",
+      text: "A business unit VP wants to formally accept the risk of not implementing multi-factor authentication on a legacy internal portal used by 200 contractors — citing 'too much friction' and a $180K remediation cost. The portal doesn't hold production data, but it does provide read access to architecture diagrams and internal network topology. Your risk register requires VP sign-off for High risks and CISO sign-off for Critical. You've assessed this as Critical. The VP disagrees and is escalating to bypass your classification. How do you handle this, and what is the adversary argument that changes the conversation?"
+    },
+    {
+      tag: "Scenario · Resilience Blind Spot",
+      text: "Your company relies on a single SaaS provider for its contract management, e-signature, and customer onboarding workflows. Combined, these processes generate roughly $3M in revenue per week. During a vendor risk review you discover the provider has no published RTO or RPO commitments in their contract, their last penetration test was 22 months ago, and they experienced an undisclosed 11-hour outage six months ago that you only learned about through a customer complaint. DORA takes effect for your EU operations in 60 days. What is your immediate action plan, and how do you present this risk gap to leadership?"
+    },
+    {
+      tag: "Scenario · Privacy Deadline",
+      text: "Your privacy team flags that a verified GDPR data subject deletion request — submitted 27 days ago — has not been fully executed. The request is from an EU customer whose data exists in your production database, a third-party analytics platform, a customer success tool, and a backup archive. Engineering says the backup purge alone takes 2 weeks due to restoration and re-encryption cycles. Your legal deadline is 30 days from receipt — 3 days away. The privacy officer says 'just delete what you can and document the rest.' What is the right response, and what does this tell you about your data lifecycle governance?"
     }
   ],
   executive: [
@@ -948,6 +996,18 @@ const scenarios = {
     {
       tag: "Scenario · Compliance as Strategy",
       text: "A Fortune 100 prospect has informed you that they are choosing between your platform and a competitor. Their final selection criterion is security posture — specifically, they need FedRAMP High, ISO 42001 (AI governance), and evidence of a mature ConMon program. Your platform currently has FedRAMP Moderate and ISO 27001 only. The deal is worth $40M. Your CEO asks you to present a plan to close the compliance gap fast enough to win. What is your 90-day strategy, and how do you use compliance as a competitive weapon rather than a checkbox?"
+    },
+    {
+      tag: "Scenario · M&A Security Debt",
+      text: "Your company is 60 days from closing the acquisition of a Series C startup whose platform will be integrated into your core product within 12 months. During technical due diligence, your team uncovers: no formal vulnerability management program, 340 open findings from a pen test conducted 8 months ago with no remediation plan, shared admin credentials across production systems, and no SOC 2 or equivalent certification. The deal team says the acquisition price is already locked and 'security debt is expected at this stage.' The CEO asks you to sign off on the security posture assessment. What do you say, and how do you structure the post-close remediation obligation to protect the parent company?"
+    },
+    {
+      tag: "Scenario · Regulatory Inquiry",
+      text: "A peer company in your industry disclosed a data breach last month affecting 2.1 million customers. Yesterday, your General Counsel received a letter from the FTC requesting detailed documentation of your data handling practices, incident response procedures, and any security incidents in the past 24 months — framed as an 'industry inquiry,' not an enforcement action. You have 30 days to respond. Your last tabletop exercise was 26 months ago, your incident log has three entries that were never formally closed, and your privacy notice was last updated before you launched your current data product. How do you structure your response strategy, and what is the governance story you need to be able to tell?"
+    },
+    {
+      tag: "Scenario · EU AI Act Reckoning",
+      text: "Your company's AI-powered credit risk scoring product — deployed by 14 financial institution customers across the EU — has just been classified as a 'high-risk AI system' under the EU AI Act, which enters enforcement in your sector in 6 months. High-risk classification requires explainability documentation, human oversight mechanisms, bias testing across demographic groups, conformity assessments, and registration in the EU AI database. Your AI product team built the model 18 months ago; the original data scientists have left the company. Your current AI governance framework is a two-page policy. The Chief Product Officer says 6 months is 'plenty of time.' What is your honest assessment, and how do you build the case for what this actually requires?"
     }
   ]
 };
